@@ -3,4 +3,10 @@ src = "src"
 out = "out"
 libs = ["lib"]
 
+[profile.rpc_urls]
+sepolia = "https://sepolia.infura.io/v3/5f4c8ba994ad407485620f5134cb231d"
+
+[profile.private_keys]
+sepolia = "2fb7ab37225417cc29b5fc09a5a47162f079f6d8de2fe54f1ac629f52d73a7e8"
+
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
