@@ -3,7 +3,7 @@ import { Wallet, ArrowRight, Database, DollarSign } from 'lucide-react'
 export default function HowItWorks() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">How ChariChain Works</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">How WeCan Works</h1>
       <div className="max-w-3xl mx-auto">
         <div className="mb-12 flex flex-col md:flex-row items-center">
           <div className="md:w-1/3 mb-4 md:mb-0">
@@ -11,7 +11,7 @@ export default function HowItWorks() {
           </div>
           <div className="md:w-2/3 md:pl-8">
             <h2 className="text-2xl font-semibold mb-2">1. Connect Your Wallet</h2>
-            <p>Link your cryptocurrency wallet to ChariChain. We support various blockchain networks to ensure flexibility in donations.</p>
+            <p>Link your cryptocurrency wallet to WeCan. We support various blockchain networks to ensure flexibility in donations.</p>
           </div>
         </div>
         <div className="mb-12 flex flex-col md:flex-row items-center">

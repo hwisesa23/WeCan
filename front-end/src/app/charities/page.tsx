@@ -1,20 +1,20 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
-// import { useContract, useContractRead } from "@thirdweb-dev/react";
+import { useContract, useContractRead } from "@thirdweb-dev/react";
 import { CharityCard } from '../../components/CharityCard'
 
 export default function Charities() {
-//   const { contract } = useContract("YOUR_CONTRACT_ADDRESS");
-//   const { data: charities, isLoading } = useContractRead(contract, "getAllCharities")
+  const { contract } = useContract(process.env.CONTRACT_ADDRESS);
+  const { data: charities, isLoading } = useContractRead(contract, "getCharityPost", [1,100]);
   const [filteredCharities, setFilteredCharities] = useState([]);
 
-//   useEffect(() => {
-//     if (charities) {
-//       setFilteredCharities(charities);
-//     }
-//   }, [charities]);
+  useEffect(() => {
+    if (charities) {
+      setFilteredCharities(charities);
+    }
+    console.log(charities);
+  }, [charities]);
 
 //   const handleSearch = (event) => {
 //     const searchTerm = event.target.value.toLowerCase();
@@ -25,9 +25,9 @@ export default function Charities() {
 //     setFilteredCharities(filtered);
 //   };
 
-//   if (isLoading) {
-//     return <div className="text-center py-20">Loading charities...</div>
-//   }
+  if (isLoading) {
+    return <div className="text-center py-20">Loading charities...</div>
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -17,7 +17,7 @@ export default function Home() {
 
       <section className="py-16 bg-gray-100">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Why Choose ChariChain?</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">Why Choose WeCan?</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <Heart className="w-12 h-12 text-blue-600 mx-auto mb-4" />

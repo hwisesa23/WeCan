@@ -1,8 +1,6 @@
-'use client'
-
-import { useState } from 'react'
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import { useState, FormEvent } from 'react'
 import { ethers } from 'ethers'
+import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 
 export default function PostCharity() {
   const [charityData, setCharityData] = useState({
@@ -11,34 +9,30 @@ export default function PostCharity() {
     targetAmount: '',
   })
 
-//   const { contract } = useContract("YOUR_CONTRACT_ADDRESS");
-//   const { mutateAsync: createCharity, isLoading } = useContractWrite(contract, "createCharity")
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault()
-//     try {
-//       const data = await createCharity({ args: [
-//         charityData.name,
-//         charityData.description,
-//         ethers.utils.parseEther(charityData.targetAmount)
-//       ] });
-//       console.info("contract call success", data);
-//       // Reset form after successful submission
-//       setCharityData({ name: '', description: '', targetAmount: '' });
-//     } catch (err) {
-//       console.error("contract call failure", err);
-//     }
-//   }
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setCharityData(prev => ({ ...prev, [name]: value }));
-//   }
-
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []); // Request wallet connection
+    const signer = provider.getSigner(); // Get the signer
+  
+    // Get the current wallet address
+    const address = await signer.getAddress();
+    const sdk = new ThirdwebSDK(
+      new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL).getSigner(address),
+      {
+        clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID
+      }
+    );
+    
+    const contract = await sdk.getContract("0x99496857A5ECF26A6b1c14C0531f032882B5C344");
+    const data = await contract.call("createCharityPost", [charityData.name,0,0,""]);
+    console.log(data);
+    return { props: { data } };
   }
 
-  const handleChange = () => {
+  const handleChange = (e: FormEvent<HTMLFormElement>) => {
+    const { name, value } = e.currentTarget;
+    setCharityData(prev => ({ ...prev, [name]: value }));
   }
 
   return (
@@ -88,6 +82,7 @@ export default function PostCharity() {
         //   disabled={isLoading}
           className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 disabled:opacity-50"
         >
+          Submit Charity
           {/* {isLoading ? 'Creating Charity...' : 'Create Charity'} */}
         </button>
       </form>
