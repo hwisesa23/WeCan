@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function KYC() {
   const [kycData, setKycData] = useState({
@@ -23,7 +23,6 @@ export default function KYC() {
   const handleSubmit = async () => {}
 
   const handleChange = () => {}
-
 
   return (
     <div className="container mx-auto px-4 py-8">

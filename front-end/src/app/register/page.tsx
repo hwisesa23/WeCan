@@ -28,9 +28,10 @@ export default function Register(){
 
             const contract = await sdk.getContract("0x99496857A5ECF26A6b1c14C0531f032882B5C344");
             const data = await contract.call("registerUser", [name]);
-            console.log(data);
+            console.log(data.receipt);
             setLoading(false)
-        }catch{
+        }catch(error){
+            console.log(error);
             setLoading(false)
             //Validate error
         }

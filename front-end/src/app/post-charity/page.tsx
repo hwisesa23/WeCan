@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, FormEvent } from 'react'
 import { ethers } from 'ethers'
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';

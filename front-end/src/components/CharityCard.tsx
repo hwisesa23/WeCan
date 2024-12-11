@@ -1,39 +1,61 @@
 'use client'
 
 import { useState } from 'react'
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+// import { useContract, useContractWrite } from "@thirdweb-dev/react";
 import { ethers } from 'ethers'
 
-export function CharityCard() {
+export interface ICharity {
+  id: number,
+  image: string,
+  title: string,
+  description: string,
+  expirationTime: number,
+  donationTarget: number,
+  totalDonation: number,
+  withdrawnDonation: number,
+  createdBy: string,
+  createdAt: number,
+  isActive: boolean
+}
+
+export function CharityCard(charity: ICharity) {
   const [donationAmount, setDonationAmount] = useState('')
-  const { contract } = useContract("YOUR_CONTRACT_ADDRESS");
-  const { mutateAsync: donate, isLoading } = useContractWrite(contract, "donate")
+  // const { contract } = useContract("YOUR_CONTRACT_ADDRESS");
+  // const { mutateAsync: donate, isLoading } = useContractWrite(contract, "donate")
+  const isLoading = false;
 
   const handleDonate = async () => {
-    try {
-      const data = await donate({ args: ["charity.id", ethers.utils.parseEther(donationAmount)] });
-      console.info("contract call successs", data);
-      setDonationAmount('')
-    } catch (err) {
-      console.error("contract call failure", err);
-    }
+    // try {
+    //   const data = await donate({ args: ["charity.id", ethers.utils.parseEther(donationAmount)] });
+    //   console.info("contract call successs", data);
+    //   setDonationAmount('')
+    // } catch (err) {
+    //   console.error("contract call failure", err);
+    // }
   }
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="p-4">
-        <h2 className="text-xl font-semibold mb-2">{"charity.name"}</h2>
-        <p className="text-gray-600 mb-4">{"charity.description"}</p>
+        <img src={charity.image} alt="" />
+        <h2 className="text-xl font-semibold mb-2">{charity.title}</h2>
+        <p className="text-gray-600 mb-4">{charity.description}</p>
         <div className="mb-4">
           <div className="h-2 bg-gray-200 rounded-full">
             <div 
               className="h-2 bg-blue-600 rounded-full" 
-              // style={{ width: `${("charity.currentAmount" / "charity.targetAmount") * 100}%` }}
+              style={{ width: `${(charity.totalDonation / charity.donationTarget) * 100}%` }}
             ></div>
           </div>
-          <div className="flex justify-between text-sm mt-1">
-            <span>{ethers.utils.formatEther("charity.currentAmount")} ETH raised</span>
-            <span>{ethers.utils.formatEther("charity.targetAmount")} ETH goal</span>
+          <div className="flex flex-col w-full text-sm mt-1 space-y-2">
+            <div className='w-full'>
+              <span className='font-semibold'>Raised Donation: </span> 
+              {charity.totalDonation} ETH
+            </div>
+            <div className='w-full'>
+              <span className='font-semibold'>Donation Goal: </span> 
+              {charity.donationTarget} ETH
+            </div>
           </div>
         </div>
         <div className="flex items-center">
