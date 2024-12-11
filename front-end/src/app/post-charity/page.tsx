@@ -48,7 +48,7 @@ export default function PostCharity() {
             id="name"
             name="name"
             value={charityData.name}
-            onChange={handleChange}
+            onChange={(e) => setCharityData(data => ({...data, "name": charityData.name}))}
             required
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -59,7 +59,7 @@ export default function PostCharity() {
             id="description"
             name="description"
             value={charityData.description}
-            onChange={handleChange}
+            onChange={(e) => setCharityData(data => ({...data, "description": charityData.description}))}
             required
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows={4}
@@ -72,7 +72,7 @@ export default function PostCharity() {
             id="targetAmount"
             name="targetAmount"
             value={charityData.targetAmount}
-            onChange={handleChange}
+            onChange={(e) => setCharityData(data => ({...data, "targetAmount": charityData.targetAmount}))}
             required
             min="0"
             step="0.01"
